@@ -19,6 +19,7 @@ public class UpdateSimulator {
 
 	protected int lives = 0;
 	protected int score = 0;
+	protected int numMice = 0;
 	bool playerAlive = false;
 	bool goalReached = false;
 
@@ -76,6 +77,7 @@ public class UpdateSimulator {
 	protected void ResolveCollisions() {
 		if (HasCollision (player.Collider2D, goal.Collider2D)) {
 			score += 10;
+			numMice++;
 			//remove goal and replace with new goal instantiated elsewhere
 			goalReached = true;
 		} else if (HasCollision (player.Collider2D, prompt.Collider2D)) {
@@ -84,6 +86,7 @@ public class UpdateSimulator {
 		} else {
 			foreach (Enemy enemy in enemies) {
 				if (HasCollision (player.Collider2D, enemy.Collider2D) && !invincible) {
+					score -= 5;
 					lives -= 1;
 					invincible = true;
 					if (lives == 0) {
@@ -102,7 +105,17 @@ public class UpdateSimulator {
 			GameObject.Destroy (goal);
 			SpawnNewGoal ();
 			goalReached = false;
+			//when we just got another success and have a multiple of three successes, add an enemy
+			if (numMice % 3 == 0) {
+				SpawnLightningBolt ();
+			}
 		}
+	}
+
+	protected void SpawnLightningBolt () {
+		GameObject go = resourceManager.LoadPrefab (ResourceManager.LIGHTNING_BOLT);
+		go.transform.position = new Vector3 (Random.Range (0, Screen.width), Random.Range (0, Screen.height));
+		enemies.Add (go.GetComponent<Enemy> ());
 	}
 
 	protected void SpawnNewGoal () {
