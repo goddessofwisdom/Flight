@@ -99,17 +99,17 @@ public class UpdateSimulator {
 
 	protected void ResolveCleanUp() {
 		if (goalReached == true) {
+			GameObject.Destroy (goal);
 			SpawnNewGoal ();
 			goalReached = false;
 		}
 	}
 
 	protected void SpawnNewGoal () {
-		//check out spawn gem in the demo project
-		/*Vector3 oldPosition = goal.transform.position;
-		GameObject.Destroy (goal);
-		GameObject go = resourceManager.LoadPrefab(ResourceManager.TARGET);*/
-
+		GameObject.Destroy (goal.gameObject);
+		GameObject go = resourceManager.LoadPrefab(ResourceManager.TARGET);
+		go.transform.position = new Vector3 (Random.Range (0, Screen.width), Random.Range (0, Screen.height));
+		goal = go.GetComponent<CaptureGoal> ();
 	}
 		
 
