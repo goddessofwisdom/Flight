@@ -17,6 +17,7 @@ public class MainGame : MonoBehaviour {
 
 	//Initialization methods
 	public void Start() {
+		Screen.orientation = ScreenOrientation.Portrait;
 		List<Enemy> Enemies = new List<Enemy> ();
 		Enemies.Add (FirstEnemy);
 		updateSimulator.Init(Player, Goal, Prompt, Enemies, ScoreView, LivesView, ResourceManager);

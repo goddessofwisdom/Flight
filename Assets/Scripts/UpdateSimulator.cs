@@ -88,9 +88,9 @@ public class UpdateSimulator {
 					invincible = true;
 					if (lives == 0) {
 						playerAlive = false;
-						scoreView.UpdateScore (score);
 						livesView.UpdateLives (lives);
-						resourceManager.LoadDialog(ResourceManager.GAME_OVER);
+						scoreView.UpdateScore (score);
+						resourceManager.LoadDialog (ResourceManager.GAME_OVER);
 					}
 				}
 			}
@@ -99,7 +99,6 @@ public class UpdateSimulator {
 
 	protected void ResolveCleanUp() {
 		if (goalReached == true) {
-			GameObject.Destroy (goal);
 			SpawnNewGoal ();
 			goalReached = false;
 		}
@@ -107,6 +106,10 @@ public class UpdateSimulator {
 
 	protected void SpawnNewGoal () {
 		//check out spawn gem in the demo project
+		/*Vector3 oldPosition = goal.transform.position;
+		GameObject.Destroy (goal);
+		GameObject go = resourceManager.LoadPrefab(ResourceManager.TARGET);*/
+
 	}
 		
 
